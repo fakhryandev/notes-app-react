@@ -11,7 +11,7 @@
   --on-surface: #ffffff;
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   --background: #dddddd;
   --suface: #ffffff;
   --on-background: #333333;
@@ -27,11 +27,10 @@
 
 a {
   color: var(--on-background);
-  text-decoration: none;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .app-container {
@@ -165,7 +164,7 @@ main {
   background-color: transparent;
   border: 0;
   color: var(--on-background);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 64px;
   font-weight: bold;
   padding: 8px 0;
@@ -180,7 +179,7 @@ main {
   background-color: transparent;
   border: 0;
   color: var(--on-background);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 24px;
   padding: 8px 0;
   min-height: 500px;
@@ -193,7 +192,7 @@ main {
 
 .search-bar input {
   margin: 16px 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: transparent;
   border: 1px solid var(--on-background);
   border-radius: 4px;
@@ -239,7 +238,7 @@ main {
 .input-login input,
 .input-register input {
   font-size: 18px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   margin-top: 8px;
   margin-bottom: 16px;
   display: block;
@@ -253,7 +252,7 @@ main {
 
 .input-login button,
 .input-register button {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: bold;
   font-size: 24px;
   width: 100%;
