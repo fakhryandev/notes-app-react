@@ -1,53 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NotesList from "../components/NotesList";
 import SearchBar from "../components/SearchBar";
-import { getArchivedNotes } from "../utils/local-data";
+import { getArchivedNotes } from "../utils/network-data";
 
-class ArchivesPage extends React.Component {
-  constructor(props) {
-    super(props);
-    const searchParams = new URLSearchParams(window.location.search);
-    const keywordValue = searchParams.get("keyword");
+const ArchivesPage = () => {
+  const [archiveNote, setArchiveNote] = useState(null);
+  const [search, setSearch] = useState("");
 
-    this.state = {
-      notes: getArchivedNotes(),
-      search: keywordValue ?? "",
+  useEffect(() => {
+    const fetchArchiveNotesData = async () => {
+      const { data } = await getArchivedNotes();
+      setArchiveNote(data);
     };
 
-    this.changeSearchParams = this.changeSearchParams.bind(this);
-  }
+    fetchArchiveNotesData();
 
-  changeSearchParams(e) {
+    return () => {
+      setArchiveNote(null);
+    };
+  }, []);
+
+  const changeSearchParams = (e) => {
     const { value } = e.target;
+    setSearch(value);
+    // searchParams.set("keyword", value);
+    // window.history.pushState({}, "", `?${searchParams.toString()}`);
+  };
 
-    this.setState({
-      search: value,
-    });
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set("keyword", value);
-    window.history.pushState({}, "", `?${searchParams.toString()}`);
-  }
-
-  render() {
-    const { notes, search } = this.state;
-    const filteredNotes =
-      search !== ""
-        ? notes.filter((note) =>
-            note.title.toLowerCase().includes(search.toLowerCase())
-          )
-        : notes;
-
-    return (
-      <section className="archives-page">
-        <h2>Catatan Arsip</h2>
-        <SearchBar
-          handleChangeSearch={this.changeSearchParams}
-          searchText={search}
-        />
-        <NotesList notes={filteredNotes} />
-      </section>
-    );
-  }
-}
+  return (
+    <section className="archives-page">
+      <h2>Catatan Arsip</h2>
+      <SearchBar searchText={search} handleChangeSearch={changeSearchParams} />
+      {archiveNote === null ? (
+        <p>Memuat catatan...</p>
+      ) : (
+        <NotesList notes={archiveNote} />
+      )}
+    </section>
+  );
+};
 
 export default ArchivesPage;

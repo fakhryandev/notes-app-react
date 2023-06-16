@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import ThemeToggler from "./ThemeToggler";
 
 function Header() {
   return (
@@ -14,8 +15,9 @@ function Header() {
           </li>
         </ul>
       </nav>
+      {/* <ThemeToggler /> */}
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

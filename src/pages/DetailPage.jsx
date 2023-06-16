@@ -1,82 +1,61 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useParams, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import NoteDetail from "../components/NoteDetail";
 import {
-  getNote,
-  deleteNote,
   archiveNote,
+  deleteNote,
+  getNote,
   unarchiveNote,
-} from '../utils/local-data'
-import NoteDetail from '../components/NoteDetail'
+} from "../utils/network-data";
 
-function DetailPageWrapper() {
-  const navigate = useNavigate()
-  const { id } = useParams()
+const DetailPage = () => {
+  const [note, setNote] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  return <DetailPage id={id} navigate={navigate} />
-}
+  useEffect(() => {
+    const fetchNoteByID = async () => {
+      const { data } = await getNote(id);
 
-class DetailPage extends React.Component {
-  constructor(props) {
-    super(props)
+      setNote(data);
+    };
 
-    this.state = {
-      note: getNote(props.id),
-      navigate: props.navigate,
-    }
+    fetchNoteByID();
 
-    this.onDeleteNote = this.onDeleteNote.bind(this)
-    this.onArchiveNote = this.onArchiveNote.bind(this)
-    this.onUnarchiveNote = this.onUnarchiveNote.bind(this)
-  }
+    return () => {
+      setNote(null);
+    };
+  }, [id]);
 
-  onDeleteNote(id) {
-    deleteNote(id)
-    const { navigate } = this.state
-    navigate('/')
-  }
+  const onDeleteNote = async (id) => {
+    await deleteNote(id);
+    navigate("/");
+  };
 
-  onArchiveNote(id) {
-    archiveNote(id)
-    const { navigate } = this.state
-    navigate('/')
-  }
+  const onArchiveNote = async (id) => {
+    await archiveNote(id);
+    navigate("/");
+  };
 
-  onUnarchiveNote(id) {
-    unarchiveNote(id)
-    const { navigate } = this.state
-    navigate('/')
-  }
+  const onUnarchiveNote = async (id) => {
+    await unarchiveNote(id);
+    navigate("/");
+  };
 
-  render() {
-    const { note } = this.state
-    if (!note) {
-      return (
-        <section>
-          <h2>404</h2>
-          <p>Page not found</p>
-        </section>
-      )
-    }
-
-    return (
+  return (
+    note && (
       <NoteDetail
         id={note.id}
         title={note.title}
         body={note.body}
         isArchived={note.archived}
         createdAt={note.createdAt}
-        onDeleteNote={this.onDeleteNote}
-        onArchiveNote={this.onArchiveNote}
-        onUnarchiveNote={this.onUnarchiveNote}
+        onDeleteNote={onDeleteNote}
+        onArchiveNote={onArchiveNote}
+        onUnarchiveNote={onUnarchiveNote}
       />
     )
-  }
-}
+  );
+};
 
-DetailPage.propTypes = {
-  id: PropTypes.string.isRequired,
-  navigate: PropTypes.func.isRequired,
-}
-
-export default DetailPageWrapper
+export default DetailPage;

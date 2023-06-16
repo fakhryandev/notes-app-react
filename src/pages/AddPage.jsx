@@ -1,43 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
-import NoteInput from '../components/NoteInput'
-import { addNote } from '../utils/local-data'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import NoteInput from "../components/NoteInput";
+import { addNote } from "../utils/network-data";
 
-function AddPageWrapper() {
-  const navigate = useNavigate()
+const AddPage = () => {
+  const navigate = useNavigate();
 
-  return <AddPage navigate={navigate} />
-}
+  const onSubmitNote = async (title, body) => {
+    await addNote({ title, body });
+    navigate("/");
+  };
 
-class AddPage extends React.Component {
-  constructor(props) {
-    super(props)
+  return (
+    <section className="add-new-page">
+      <NoteInput onSubmitNote={onSubmitNote} />
+    </section>
+  );
+};
 
-    this.state = {
-      navigate: props.navigate,
-    }
-
-    this.onSubmitNote = this.onSubmitNote.bind(this)
-  }
-
-  onSubmitNote(title, body) {
-    addNote({ title, body })
-    const { navigate } = this.state
-    navigate('/')
-  }
-
-  render() {
-    return (
-      <section className="add-new-page">
-        <NoteInput onSubmitNote={this.onSubmitNote} />
-      </section>
-    )
-  }
-}
-
-AddPage.propTypes = {
-  navigate: PropTypes.func.isRequired,
-}
-
-export default AddPageWrapper
+export default AddPage;
