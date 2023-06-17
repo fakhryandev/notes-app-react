@@ -5,9 +5,9 @@ import { Navigate, useLocation } from "react-router-dom";
 const AuthMiddleware = (Component) => {
   const { auth } = useContext(AuthContext);
   const location = useLocation();
-
+  console.log(auth);
   if (!auth) {
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return <Component />;

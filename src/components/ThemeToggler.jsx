@@ -1,7 +1,8 @@
-import useTheme from "../hooks/useTheme";
+import { useContext } from "react";
+import ThemeContext from "../context/ThemeContext";
 
 export default function ThemeToggler() {
-  const [theme, changeTheme] = useTheme();
+  const { theme, changeTheme } = useContext(ThemeContext);
 
   return (
     <button

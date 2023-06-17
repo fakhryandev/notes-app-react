@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import useInput from "../hooks/useInput";
-import { login, putAccessToken } from "../utils/network-data";
+import { getUserLogged, login, putAccessToken } from "../utils/network-data";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const LoginPage = () => {
+  const { auth, setAuth } = useContext(AuthContext);
   const [email, onEmailChange] = useInput("");
   const [password, onPasswordChange] = useInput("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     try {
