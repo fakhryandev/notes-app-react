@@ -2,15 +2,19 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { Navigate, useLocation } from "react-router-dom";
 
-const AuthMiddleware = (Component) => {
+const RouteMiddleware = ({ children, access }) => {
   const { auth } = useContext(AuthContext);
   const location = useLocation();
-  console.log(auth);
-  if (!auth) {
+
+  if (!auth && access === "private") {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return <Component />;
+  if (auth && access === "public") {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
+  return children;
 };
 
-export default AuthMiddleware;
+export default RouteMiddleware;

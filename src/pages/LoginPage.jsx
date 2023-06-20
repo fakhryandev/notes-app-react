@@ -20,6 +20,16 @@ const LoginPage = () => {
       if (!result.error) {
         putAccessToken(result.data.accessToken);
       }
+
+      const userLogged = await getUserLogged();
+
+      if (!userLogged.error) {
+        setAuth(userLogged.data);
+      } else {
+        setAuth(null);
+      }
+
+      navigate("/");
     } catch (error) {
       alert(error);
     }

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import AddPage from "./pages/AddPage";
 import ArchivesPage from "./pages/ArchivesPage";
@@ -12,21 +11,21 @@ import AuthContext from "./context/AuthContext";
 import ThemeContext from "./context/ThemeContext";
 import LocaleContext from "./context/LocaleContext";
 import useTheme from "./hooks/useTheme";
-import authMiddleware from "./middleware/AuthMiddleware";
 import useLocale from "./hooks/useLocale";
+import Routes from "./routes";
 
 const App = () => {
-  // const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(null);
   const [theme, changeTheme] = useTheme();
   const [locale, changeLocale] = useLocale();
 
-  // const authContextValue = useMemo(
-  //   () => ({
-  //     auth,
-  //     setAuth,
-  //   }),
-  //   [auth]
-  // );
+  const authContextValue = useMemo(
+    () => ({
+      auth,
+      setAuth,
+    }),
+    [auth]
+  );
 
   const themeContextValue = useMemo(
     () => ({
@@ -46,16 +45,16 @@ const App = () => {
   );
 
   useEffect(() => {
-    // const fetchUserLoggedIn = async () => {
-    //   const userLoggedIn = await getUserLogged();
-    //   if (!userLoggedIn.error) {
-    //     setAuth(userLoggedIn.data);
-    //     console.log(authContextValue);
-    //   } else {
-    //     setAuth(null);
-    //   }
-    // };
-    // fetchUserLoggedIn();
+    const fetchUserLoggedIn = async () => {
+      const userLoggedIn = await getUserLogged();
+      if (!userLoggedIn.error) {
+        setAuth(userLoggedIn.data);
+      } else {
+        setAuth(null);
+      }
+    };
+    fetchUserLoggedIn();
+
     if (localStorage.locale) {
       changeLocale(localStorage.locale);
     } else {
@@ -74,21 +73,21 @@ const App = () => {
   return (
     <ThemeContext.Provider value={themeContextValue}>
       <LocaleContext.Provider value={localeContextValue}>
-        {/* <AuthContext.Provider value={authContextValue}> */}
-        <div className="app-container">
-          <Header />
-          <main>
-            <Routes>
-              {/* <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} /> */}
-              {/* <Route path="/" element={authMiddleware(<HomePage />)} />
-              <Route path="/archives" element={<ArchivesPage />} />
+        <AuthContext.Provider value={authContextValue}>
+          <div className="app-container">
+            <Header />
+            <main>
+              <Routes />
+              {/* <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/archives" element={<ArchivesPage />} />
               <Route path="/notes/new" element={<AddPage />} />
-              <Route path="/notes/:id" element={<DetailPageWrapper />} /> */}
-            </Routes>
-          </main>
-        </div>
-        {/* </AuthContext.Provider> */}
+              <Route path="/notes/:id" element={<DetailPageWrapper />} />
+              </Routes> */}
+            </main>
+          </div>
+        </AuthContext.Provider>
       </LocaleContext.Provider>
     </ThemeContext.Provider>
   );
