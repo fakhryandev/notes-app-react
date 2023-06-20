@@ -1,11 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Header from "./components/Header";
-import AddPage from "./pages/AddPage";
-import ArchivesPage from "./pages/ArchivesPage";
-import DetailPageWrapper from "./pages/DetailPage";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import { getUserLogged } from "./utils/network-data";
 import AuthContext from "./context/AuthContext";
 import ThemeContext from "./context/ThemeContext";
@@ -78,13 +72,6 @@ const App = () => {
             <Header />
             <main>
               <Routes />
-              {/* <Routes>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/archives" element={<ArchivesPage />} />
-              <Route path="/notes/new" element={<AddPage />} />
-              <Route path="/notes/:id" element={<DetailPageWrapper />} />
-              </Routes> */}
             </main>
           </div>
         </AuthContext.Provider>

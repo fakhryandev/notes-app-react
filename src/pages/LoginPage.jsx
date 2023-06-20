@@ -6,7 +6,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 const LoginPage = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
   const [email, onEmailChange] = useInput("");
   const [password, onPasswordChange] = useInput("");
   const navigate = useNavigate();
