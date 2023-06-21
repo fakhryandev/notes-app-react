@@ -7,8 +7,10 @@ import LocaleContext from "./context/LocaleContext";
 import useTheme from "./hooks/useTheme";
 import useLocale from "./hooks/useLocale";
 import Routes from "./routes";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState(null);
   const [theme, changeTheme] = useTheme();
   const [locale, changeLocale] = useLocale();
@@ -46,6 +48,7 @@ const App = () => {
       } else {
         setAuth(null);
       }
+      setLoading(false);
     };
     fetchUserLoggedIn();
 
@@ -70,9 +73,7 @@ const App = () => {
         <AuthContext.Provider value={authContextValue}>
           <div className="app-container">
             <Header />
-            <main>
-              <Routes />
-            </main>
+            <main>{loading ? <LoadingIndicator /> : <Routes />}</main>
           </div>
         </AuthContext.Provider>
       </LocaleContext.Provider>

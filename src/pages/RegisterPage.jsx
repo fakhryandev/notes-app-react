@@ -41,7 +41,7 @@ const RegisterPage = () => {
         handleRegister={handleRegister}
       />
       <p>
-        Sudah punya akun? <Link to="/">Daftar di sini</Link>
+        Sudah punya akun? <Link to="/">Login disini</Link>
       </p>
     </div>
   );

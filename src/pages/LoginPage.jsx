@@ -46,7 +46,7 @@ const LoginPage = () => {
         handleLogin={handleLogin}
       />
       <p>
-        Belum punya akun? <Link to="/register">Daftar di sini</Link>
+        Belum punya akun? <Link to="/register">Daftar disini</Link>
       </p>
     </div>
   );

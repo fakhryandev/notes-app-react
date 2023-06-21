@@ -2,40 +2,40 @@ import React, { useEffect, useState } from "react";
 import NotesList from "../components/NotesList";
 import SearchBar from "../components/SearchBar";
 import { getArchivedNotes } from "../utils/network-data";
+import { useSearchParams } from "react-router-dom";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 const ArchivesPage = () => {
-  const [archiveNote, setArchiveNote] = useState(null);
-  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [archiveNote, setArchiveNote] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get("keyword"));
 
   useEffect(() => {
     const fetchArchiveNotesData = async () => {
       const { data } = await getArchivedNotes();
       setArchiveNote(data);
+      setLoading(false);
     };
 
     fetchArchiveNotesData();
 
     return () => {
-      setArchiveNote(null);
+      setArchiveNote([]);
     };
   }, []);
 
   const changeSearchParams = (e) => {
     const { value } = e.target;
     setSearch(value);
-    // searchParams.set("keyword", value);
-    // window.history.pushState({}, "", `?${searchParams.toString()}`);
+    setSearchParams({ keyword: value });
   };
 
   return (
     <section className="archives-page">
       <h2>Catatan Arsip</h2>
       <SearchBar searchText={search} handleChangeSearch={changeSearchParams} />
-      {archiveNote === null ? (
-        <p>Memuat catatan...</p>
-      ) : (
-        <NotesList notes={archiveNote} />
-      )}
+      {loading ? <LoadingIndicator /> : <NotesList notes={archiveNote} />}
     </section>
   );
 };
