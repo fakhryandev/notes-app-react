@@ -12,7 +12,7 @@ const ArchivesPage = () => {
   const [loading, setLoading] = useState(true);
   const [archiveNote, setArchiveNote] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(() => searchParams.get("keyword"));
+  const [search, setSearch] = useState(() => searchParams.get("keyword") || "");
 
   useEffect(() => {
     const fetchArchiveNotesData = async () => {
