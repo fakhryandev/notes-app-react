@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import LocalContext from "../context/LocaleContext";
+import LocaleContext from "../context/LocaleContext";
+import { FaLanguage } from "react-icons/fa";
 
 export default function LocaleToggler() {
-  const { locale, changeLocale } = useContext(LocalContext);
+  const { locale, changeLocale } = useContext(LocaleContext);
 
   return (
     <button
@@ -10,7 +11,7 @@ export default function LocaleToggler() {
       className="toggle-locale"
       onClick={() => changeLocale(locale === "id" ? "en" : "id")}
     >
-      {locale === "id" ? "en" : "id"}
+      <FaLanguage />
     </button>
   );
 }

@@ -2,8 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import RegisterForm from "../components/RegisterForm";
 import { register } from "../utils/network-data";
+import { registerPage } from "../utils/content";
+import LocaleContext from "../context/LocaleContext";
+import { useContext } from "react";
 
 const RegisterPage = () => {
+  const { locale } = useContext(LocaleContext);
   const [name, onNameChange] = useInput("");
   const [email, onEmailChange] = useInput("");
   const [password, onPasswordChange] = useInput("");
@@ -28,7 +32,7 @@ const RegisterPage = () => {
 
   return (
     <div className="register-page">
-      <h2>isi form untuk mendaftar akun.</h2>
+      <h2>{registerPage[locale].registerFormTitle}</h2>
       <RegisterForm
         name={name}
         onNameChange={onNameChange}
@@ -41,7 +45,8 @@ const RegisterPage = () => {
         handleRegister={handleRegister}
       />
       <p>
-        Sudah punya akun? <Link to="/">Login disini</Link>
+        {registerPage[locale].loginQuestion}{" "}
+        <Link to="/">{registerPage[locale].loginLink}</Link>
       </p>
     </div>
   );

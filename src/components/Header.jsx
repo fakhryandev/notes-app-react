@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggler from "./ThemeToggler";
 import LocaleToggler from "./LocaleToggler";
-import LocalContext from "../context/LocaleContext";
+import LocaleContext from "../context/LocaleContext";
 import { mainPage } from "../utils/content";
 import LogoutButton from "./LogoutButton";
 import AuthContext from "../context/AuthContext";
 
 function Header() {
   const { auth } = useContext(AuthContext);
-  const { locale } = useContext(LocalContext);
+  const { locale } = useContext(LocaleContext);
   const { pathname } = useLocation();
 
   return (

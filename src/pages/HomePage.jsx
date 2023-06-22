@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import NotesList from "../components/NotesList";
 import SearchBar from "../components/SearchBar";
 import { getActiveNotes } from "../utils/network-data";
 import LoadingIndicator from "../components/LoadingIndicator";
+import LocaleContext from "../context/LocaleContext";
+import { activeNotePage } from "../utils/content";
 
 const HomePage = () => {
+  const { locale } = useContext(LocaleContext);
   const [loading, setLoading] = useState(true);
   const [notes, setNotes] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,7 +41,7 @@ const HomePage = () => {
 
   return (
     <section className="homepage">
-      <h2>Catatan Aktif</h2>
+      <h2>{activeNotePage[locale].title}</h2>
       <SearchBar searchText={search} handleChangeSearch={changeSearchParams} />
       {loading ? <LoadingIndicator /> : <NotesList notes={filteredNotes} />}
       <div className="homepage__action">

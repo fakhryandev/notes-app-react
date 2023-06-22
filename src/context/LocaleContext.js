@@ -1,5 +1,5 @@
 import React from "react";
 
-const LocalContext = React.createContext();
+const LocaleContext = React.createContext();
 
-export default LocalContext;
+export default LocaleContext;

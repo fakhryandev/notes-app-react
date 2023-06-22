@@ -1,30 +1,33 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import LocaleContext from "../context/LocaleContext";
+import { newNotePage } from "../utils/content";
 
 function NoteInput({ onSubmitNote }) {
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
+  const { locale } = useContext(LocaleContext);
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
 
   const onBodyChangeEventHandler = (event) => {
-    setBody(event.target.innerHTML)
-  }
+    setBody(event.target.innerHTML);
+  };
 
   const onTitleChangeEventHandler = (event) => {
-    setTitle(event.target.value)
-  }
+    setTitle(event.target.value);
+  };
 
   return (
     <>
       <div className="add-new-page__input">
         <input
           className="add-new-page__input__title"
-          placeholder="Judul catatan"
+          placeholder={newNotePage[locale].titlePlaceholder}
           onChange={onTitleChangeEventHandler}
           value={title}
         />
         <div
           className="add-new-page__input__body"
-          data-placeholder="Body Catatan"
+          data-placeholder={newNotePage[locale].contentPlaceholder}
           contentEditable
           onInput={onBodyChangeEventHandler}
           placeholder={body}
@@ -52,11 +55,11 @@ function NoteInput({ onSubmitNote }) {
         </button>
       </div>
     </>
-  )
+  );
 }
 
 NoteInput.propTypes = {
   onSubmitNote: PropTypes.func.isRequired,
-}
+};
 
-export default NoteInput
+export default NoteInput;

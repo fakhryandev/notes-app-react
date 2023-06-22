@@ -8,7 +8,7 @@ const LoginForm = ({
   handleLogin,
 }) => {
   return (
-    <div className="input-login">
+    <form className="input-login">
       <label htmlFor="email">Email</label>
       <input type="email" id="email" value={email} onChange={onEmailChange} />
       <label htmlFor="password">Password</label>
@@ -18,10 +18,10 @@ const LoginForm = ({
         value={password}
         onChange={onPasswordChange}
       />
-      <button type="button" onClick={handleLogin}>
+      <button type="submit" onClick={handleLogin}>
         Login
       </button>
-    </div>
+    </form>
   );
 };
 

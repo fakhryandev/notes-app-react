@@ -1,11 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Note from './Note'
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import Note from "./Note";
+import { activeNotePage } from "../utils/content";
+import LocaleContext from "../context/LocaleContext";
 
 function NotesList({ notes }) {
+  const { locale } = useContext(LocaleContext);
+
   return notes.length === 0 ? (
     <section className="notes-list-empty">
-      <p className="notes-list__empty">Tidak ada catatan</p>
+      <p className="notes-list__empty">{activeNotePage[locale].empty}</p>
     </section>
   ) : (
     <div className="notes-list">
@@ -13,7 +17,7 @@ function NotesList({ notes }) {
         <Note key={note.id} note={note} />
       ))}
     </div>
-  )
+  );
 }
 
 NotesList.propTypes = {
@@ -26,6 +30,6 @@ NotesList.propTypes = {
       archived: PropTypes.bool.isRequired,
     })
   ).isRequired,
-}
+};
 
-export default NotesList
+export default NotesList;

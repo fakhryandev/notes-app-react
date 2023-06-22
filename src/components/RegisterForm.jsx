@@ -12,7 +12,7 @@ const RegisterForm = ({
   handleRegister,
 }) => {
   return (
-    <div className="input-register">
+    <form className="input-register">
       <label htmlFor="name">Name</label>
       <input type="text" id="name" value={name} onChange={onNameChange} />
       <label htmlFor="email">Email</label>
@@ -31,10 +31,10 @@ const RegisterForm = ({
         value={confirmPassword}
         onChange={onConfirmPasswordChange}
       />
-      <button type="button" onClick={handleRegister}>
+      <button type="submit" onClick={handleRegister}>
         Register
       </button>
-    </div>
+    </form>
   );
 };
 

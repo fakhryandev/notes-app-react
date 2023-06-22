@@ -4,8 +4,11 @@ import useInput from "../hooks/useInput";
 import { getUserLogged, login, putAccessToken } from "../utils/network-data";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import LocaleContext from "../context/LocaleContext";
+import { loginPage } from "../utils/content";
 
 const LoginPage = () => {
+  const { locale } = useContext(LocaleContext);
   const { setAuth } = useContext(AuthContext);
   const [email, onEmailChange] = useInput("");
   const [password, onPasswordChange] = useInput("");
@@ -37,7 +40,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <h2>Yuk, login untuk menggunakan aplikasi.</h2>
+      <h2>{loginPage[locale].welcomeText}</h2>
       <LoginForm
         email={email}
         password={password}
@@ -46,7 +49,8 @@ const LoginPage = () => {
         handleLogin={handleLogin}
       />
       <p>
-        Belum punya akun? <Link to="/register">Daftar disini</Link>
+        {loginPage[locale].registerQuestion}{" "}
+        <Link to="/register">{loginPage[locale].registerLink}</Link>
       </p>
     </div>
   );

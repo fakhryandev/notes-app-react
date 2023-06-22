@@ -1,3 +1,8 @@
+import { useContext } from "react";
+import LocaleContext from "../context/LocaleContext";
+import { mainPage } from "../utils/content";
+
 export default function LoadingIndicator() {
-  return <p>Memuat data...</p>;
+  const { locale } = useContext(LocaleContext);
+  return <p>{mainPage[locale].message.loading}</p>;
 }

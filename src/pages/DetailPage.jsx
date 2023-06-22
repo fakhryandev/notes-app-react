@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NoteDetail from "../components/NoteDetail";
 import LoadingIndicator from "../components/LoadingIndicator";
@@ -8,8 +8,11 @@ import {
   getNote,
   unarchiveNote,
 } from "../utils/network-data";
+import LocaleContext from "../context/LocaleContext";
+import { detailNotePage } from "../utils/content";
 
 const DetailPage = () => {
+  const { locale } = useContext(LocaleContext);
   const [loading, setLoading] = useState(true);
   const [note, setNote] = useState(null);
   const { id } = useParams();
@@ -59,7 +62,7 @@ const DetailPage = () => {
       onUnarchiveNote={onUnarchiveNote}
     />
   ) : (
-    <p>Catatan tidak ditemukan...</p>
+    <p>{detailNotePage[locale].message}</p>
   );
 };
 
