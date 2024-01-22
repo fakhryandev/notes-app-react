@@ -34,11 +34,15 @@ const ArchivesPage = () => {
     setSearchParams({ keyword: value });
   };
 
+  const filteredNotes = archiveNote.filter((note) =>
+    note.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <section className="archives-page">
       <h2>{archivedNotePage[locale].title}</h2>
       <SearchBar searchText={search} handleChangeSearch={changeSearchParams} />
-      {loading ? <LoadingIndicator /> : <NotesList notes={archiveNote} />}
+      {loading ? <LoadingIndicator /> : <NotesList notes={filteredNotes} />}
     </section>
   );
 };

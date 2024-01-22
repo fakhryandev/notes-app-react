@@ -29,7 +29,7 @@ const App = () => {
       changeTheme,
     }),
 
-    [theme]
+    [theme, changeTheme]
   );
 
   const localeContextValue = useMemo(
@@ -37,7 +37,7 @@ const App = () => {
       locale,
       changeLocale,
     }),
-    [locale]
+    [locale, changeLocale]
   );
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const App = () => {
       localStorage.setItem("theme", "dark");
       changeTheme("dark");
     }
-  }, []);
+  }, [changeLocale, changeTheme]);
 
   return (
     <ThemeContext.Provider value={themeContextValue}>
